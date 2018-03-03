@@ -58,7 +58,7 @@ ICBlockchain GetBlockchain() {
 
 bool MineNewBlock(ICAddress sender, ICAddress receiver, int amount) {
     if(__length == BLOCKCHAIN_MAX_SIZE) {
-        printf("No blockchain created or max length exceeded\n");
+        printf("Max length exceeded\n");
         return false;
     }
 
