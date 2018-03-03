@@ -43,7 +43,7 @@ ICBlock* GetLastBlock() {
     return &__blockchain.blockchain[__length - 1];
 }
 
-ICBlock* GetBlockAt(uint8_t index) {
+ICBlock* GetBlockAt(int16_t index) {
     if(index < 0 || index >= __length) {
         printf("index out of range\n");
         return NULL;

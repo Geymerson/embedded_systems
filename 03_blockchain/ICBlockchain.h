@@ -32,7 +32,7 @@ ICBlock* GetLastBlock();
 
 //Get the block at position 'index'
 // 1 <= index <= blockchain length
-ICBlock* GetBlockAt(uint8_t index);
+ICBlock* GetBlockAt(int16_t index);
 
 //Get the whole blockchain
 ICBlockchain GetBlockchain();
