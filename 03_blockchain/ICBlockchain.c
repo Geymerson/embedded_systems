@@ -118,6 +118,11 @@ bool VerifyBlockchain() {
         if(!ICHashEquals(&GetBlockAt(i)->previousHash, &GetBlockAt(i - 1)->hash)) {
             return false;
         }
+        ICHash hash;
+        ICHashCreate(&hash, &GetBlockAt(i)->data, &GetBlockAt(i)->previousHash);
+        if(!ICHashEquals(&hash, &GetBlockAt(i)->hash)) {
+            return false;
+        }
     }
     return true;
 }

@@ -31,5 +31,10 @@ int main() {
     for(int i = 0; i < blockchain.size; i++) {
         printf("blockchain data: %d\n", blockchain.blockchain[i].data.amout);
     }
+    if(VerifyBlockchain()) {
+        printf("This is a valid blockchain\n");
+    } else {
+        printf("Invalid blockchain\n");
+    }
 	return 0;
 }
