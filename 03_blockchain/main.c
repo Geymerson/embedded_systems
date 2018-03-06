@@ -12,26 +12,26 @@
 #include "ICBlockchain.h"
 
 int main() {
-    CreatBlockchain();
-    MineNewBlock(0x44, 0x74, 17);
-    MineNewBlock(0x42, 0x60, 4);
-    MineNewBlock(0x50, 0x33, 7);
-    GenerateBlockchainLog();
-    if(VerifyBlockchain()) {
+    ICBlockchainCreateBlockchain();
+    ICBlockchainMineNewBlock(0x44, 0x74, 17);
+    ICBlockchainMineNewBlock(0x42, 0x60, 4);
+    ICBlockchainMineNewBlock(0x50, 0x33, 7);
+    ICBlockchainGenerateBlockchainLog();
+    if(ICBlockchainVerifyBlockchain()) {
         printf("This is a valid blockchain\n");
     } else {
         printf("Invalid blockchain\n");
     }
 
-    ICBlock* block = GetLastBlock();
+    ICBlock* block = ICBlockchainGetLastBlock();
     block->data.amout = 5;
 
-    ICBlockchain blockchain = GetBlockchain();
+    ICBlockchain blockchain = ICBlockchainGetBlockchain();
     printf("blockchain size: %d\n", blockchain.size);
     for(int i = 0; i < blockchain.size; i++) {
         printf("blockchain data: %d\n", blockchain.blockchain[i].data.amout);
     }
-    if(VerifyBlockchain()) {
+    if(ICBlockchainVerifyBlockchain()) {
         printf("This is a valid blockchain\n");
     } else {
         printf("Invalid blockchain\n");

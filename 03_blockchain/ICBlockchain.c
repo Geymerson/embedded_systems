@@ -15,7 +15,7 @@ static ICBlockchain __blockchain;
 static int16_t __index = -1;
 static uint16_t __length = 0;
 
-void CreatBlockchain() {
+void ICBlockchainCreateBlockchain() {
     ICBlock icBlock;
 
     //The genesis block has a '0' value previous hash
@@ -35,7 +35,7 @@ void CreatBlockchain() {
     __blockchain.blockchain[0] = icBlock;
 }
 
-ICBlock* GetLastBlock() {
+ICBlock* ICBlockchainGetLastBlock() {
     if(__index == -1) {
         printf("No blockchain created\n");
         return NULL;
@@ -43,7 +43,7 @@ ICBlock* GetLastBlock() {
     return &__blockchain.blockchain[__length - 1];
 }
 
-ICBlock* GetBlockAt(int16_t index) {
+ICBlock* ICBlockchainGetBlockAt(int16_t index) {
     if(index < 0 || index >= __length) {
         printf("index out of range\n");
         return NULL;
@@ -51,12 +51,12 @@ ICBlock* GetBlockAt(int16_t index) {
     return &__blockchain.blockchain[index];
 }
 
-ICBlockchain GetBlockchain() {
+ICBlockchain ICBlockchainGetBlockchain() {
     __blockchain.size = __length;
     return __blockchain;
 }
 
-bool MineNewBlock(ICAddress sender, ICAddress receiver, int amount) {
+bool ICBlockchainMineNewBlock(ICAddress sender, ICAddress receiver, int amount) {
     if(__length == BLOCKCHAIN_MAX_SIZE) {
         printf("Max length exceeded\n");
         return false;
@@ -74,7 +74,7 @@ bool MineNewBlock(ICAddress sender, ICAddress receiver, int amount) {
         memset(hash.hash, '0', sizeof hash.hash);
         ICHashCopy(&block.previousHash, &hash);
     } else {
-        hash = GetLastBlock()->hash;
+        hash = ICBlockchainGetLastBlock()->hash;
         ICHashCopy(&block.previousHash, &hash);
     }
 
@@ -86,14 +86,14 @@ bool MineNewBlock(ICAddress sender, ICAddress receiver, int amount) {
     return true;
 }
 
-void GenerateBlockchainLog() {
+void ICBlockchainGenerateBlockchainLog() {
     for(int i = 0; i < __length; i++) {
         printf("block %d: \n", i);
         char hashOutput[250], previousHashOutput[250], blockDataOutput[250];
         ICHash hash, previousHash;
-        ICBlockData blockData = GetBlockAt(i)->data;
-        hash = GetBlockAt(i)->hash;
-        previousHash = GetBlockAt(i)->previousHash;
+        ICBlockData blockData = ICBlockchainGetBlockAt(i)->data;
+        hash = ICBlockchainGetBlockAt(i)->hash;
+        previousHash = ICBlockchainGetBlockAt(i)->previousHash;
 
         //Generate output strings
         ICHashToString(hashOutput, &hash);
@@ -107,7 +107,7 @@ void GenerateBlockchainLog() {
     }
 }
 
-bool VerifyBlockchain() {
+bool ICBlockchainVerifyBlockchain() {
     if(__length == 0) {
         printf("No blockchain created\n");
         return false;
@@ -115,12 +115,12 @@ bool VerifyBlockchain() {
 
     //i = 1 since genesis block requires no verification
     for(int i = 1; i < __length; i++) {
-        if(!ICHashEquals(&GetBlockAt(i)->previousHash, &GetBlockAt(i - 1)->hash)) {
+        if(!ICHashEquals(&ICBlockchainGetBlockAt(i)->previousHash, &ICBlockchainGetBlockAt(i - 1)->hash)) {
             return false;
         }
         ICHash hash;
-        ICHashCreate(&hash, &GetBlockAt(i)->data, &GetBlockAt(i)->previousHash);
-        if(!ICHashEquals(&hash, &GetBlockAt(i)->hash)) {
+        ICHashCreate(&hash, &ICBlockchainGetBlockAt(i)->data, &ICBlockchainGetBlockAt(i)->previousHash);
+        if(!ICHashEquals(&hash, &ICBlockchainGetBlockAt(i)->hash)) {
             return false;
         }
     }

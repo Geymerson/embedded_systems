@@ -25,26 +25,26 @@ typedef struct {
 /** BLOCKCHAIN FUNCTIONS **/
 
 //Create an empty blockchain
-void CreatBlockchain();
+void ICBlockchainCreateBlockchain();
 
 //Get the block in the last position
-ICBlock* GetLastBlock();
+ICBlock* ICBlockchainGetLastBlock();
 
 //Get the block at position 'index'
 // 1 <= index <= blockchain length
-ICBlock* GetBlockAt(int16_t index);
+ICBlock* ICBlockchainGetBlockAt(int16_t index);
 
 //Get the whole blockchain
-ICBlockchain GetBlockchain();
+ICBlockchain ICBlockchainGetBlockchain();
 
 //Mine a new block and add it to the blockchain
-bool MineNewBlock(ICAddress sender, ICAddress receiver, int amount);
+bool ICBlockchainMineNewBlock(ICAddress sender, ICAddress receiver, int amount);
 
 //Generate log
-void GenerateBlockchainLog();
+void ICBlockchainGenerateBlockchainLog();
 
 //Check for inconsistency in the blockchain sequence
-bool VerifyBlockchain();
+bool ICBlockchainVerifyBlockchain();
 
 
 #endif //ICBLOCKCHAIN_H
